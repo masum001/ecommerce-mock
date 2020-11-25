@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { Grid } from "@material-ui/core";
+import ProductList from "./components/ProductList";
+import Cart from './components/Cart'
+import ProductContextProvider from "./context/ProductContext";
+import { Route, Switch } from 'react-router-dom'
+const { default: Header } = require("./components/Header");
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ProductContextProvider>
+    <Grid container direction="column">
+      <Grid item >
+         <Header />
+      </Grid>
+      <Grid item container> 
+          <Grid item sm={2} xs={false}/>
+            <Grid item sm={8} xs={12}>
+            <Switch>
+              <Route exact path='/' component={ProductList} />
+              <Route  path='/cart' component={Cart} />
+            </Switch>
+            </Grid>
+          <Grid item sm={2} xs={false}/>
+      </Grid>
+    </Grid>
+    </ProductContextProvider>
     </div>
   );
 }
