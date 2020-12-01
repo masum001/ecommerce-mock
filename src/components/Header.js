@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
+import { Badge, Button } from '@material-ui/core';
 import {  Link } from "react-router-dom"
 import ProductList from './ProductList';
 import Cart from './Cart';
+import { ProductContext } from '../context/ProductContext'
 
 const useStyles = makeStyles(()=>({
     root : {
@@ -23,6 +24,7 @@ const useStyles = makeStyles(()=>({
 }))
 const Header = () => {
 
+    const { cartList } = useContext(ProductContext)
     const classes = useStyles();
     return (
         <div>
@@ -31,9 +33,11 @@ const Header = () => {
                 <Typography className={classes.titleStyle}>
                     <Button style={{color : "white"}} component={Link} to='/'>E-Buy</Button>
                 </Typography>
-                <Button component={ Link } to='/cart' variant="contained" style={{background : "white"}}>
-                    Cart
-                </Button>
+                <Badge badgeContent={cartList.length} color="error">
+                    <Button component={ Link } to='/cart' variant="contained" style={{background : "white"}}>
+                        Cart
+                    </Button>
+                </Badge>
             </Toolbar>
         </AppBar>
         </div>
